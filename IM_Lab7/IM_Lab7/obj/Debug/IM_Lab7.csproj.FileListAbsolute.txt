@@ -1,0 +1,10 @@
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\bin\Debug\IM_Lab7.exe.config
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\bin\Debug\IM_Lab7.exe
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\bin\Debug\IM_Lab7.pdb
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.Form1.resources
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.Properties.Resources.resources
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.csproj.GenerateResource.cache
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.exe
+C:\Users\User\source\repos\IM_Lab7\IM_Lab7\obj\Debug\IM_Lab7.pdb
