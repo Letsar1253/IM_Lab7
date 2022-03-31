@@ -36,9 +36,25 @@ namespace IM_Lab7
         private double _dangerLvl;
         private int _inCome;
         private int _outCome;
+        /// <summary>
+        /// Сколько ед. времени участок загруженность на максимум
+        /// </summary>
         private int _countSiteСongestion = 0;
+        /// <summary>
+        /// Сколько ед. времени расширение участка применяется
+        /// </summary>
+        private int _countExpandSite = 0;
+        /// <summary>
+        /// Расширение участка
+        /// </summary>
         private double _expandSite = 0;
+        /// <summary>
+        /// Время расследование дела
+        /// </summary>
         private int _timeInvestigationCases;
+        /// <summary>
+        /// Время обработки заявлений
+        /// </summary>
         private int _timeProcessingDeclaration;
 
 
@@ -51,6 +67,7 @@ namespace IM_Lab7
         {
             if (!timer1.Enabled)
             {
+                chart1.Series[0].Points.Clear();
                 _countPersons = (int)countPersons.Value;
                 _countCriminalCases = (int)countСriminalСase.Value;
                 _time = 0;
@@ -69,28 +86,58 @@ namespace IM_Lab7
             chart1.Series[0].Points.AddXY(_time, _countCriminalCases);
             _time++;
 
-            var randomValue = _random.NextDouble();
+            
+            _dangerLvl = _random.NextDouble();
 
-            _qualification = randomValue;
-            _dangerLvl = randomValue;
+            var randQualification = _random.NextDouble();
+            randQualification += _dangerLvl * 0.3;
+            _qualification = randQualification > 0.5 ? randQualification : randQualification + 0.5;
 
-           
             _inCome = _random.Next(3, 24);
-            _outCome = _random.Next(3, 24);
+            
             _countCriminalCases += _inCome;
-            _siteСongestion = _countCriminalCases /( _countPersons * 5 * _qualification) - _expandSite;
 
-            if (_siteСongestion > 0.95)
+            _siteСongestion = _countCriminalCases / (_countPersons * 5 * _qualification);
+
+            if (_expandSite > 0)
+                _countExpandSite++;
+
+            if (_countExpandSite == 1)
             {
-                _countSiteСongestion++;
+                _countPersons = (int)(_countPersons * (1 + _expandSite));
+                _siteСongestion = _countCriminalCases / (_countPersons * 5 * _qualification) - _expandSite;
             }
-            if (_countSiteСongestion > 5)
+
+            if (_siteСongestion > 0.8)
+                _countSiteСongestion++;
+
+            if (_countSiteСongestion > 2)
             {
-                _expandSite = _siteСongestion * (1 + _random.NextDouble());
+                _expandSite = _siteСongestion * _random.NextDouble();
                 _countSiteСongestion = 0;
             }
 
+            _timeProcessingDeclaration = Math.Min((int)(_siteСongestion * 10) + _inCome / 3,
+                (int)(_siteСongestion * _qualification) + _inCome / 3);
+
+            _timeInvestigationCases = 1 + Math.Min((int) (_siteСongestion * 10 + _timeProcessingDeclaration * 0.5),
+                (int) (_qualification * 10 + _dangerLvl * 10));
+
+            _outCome = (int)(100/_timeInvestigationCases);
+            
             _countCriminalCases -= _outCome;
+            _countCriminalCases = _countCriminalCases < 0 ? 0 : _countCriminalCases;
+            if (_countCriminalCases == 0)
+            {
+
+
+            }
+
+            if (_countExpandSite == 2)
+            {
+                _expandSite = 0;
+                _countExpandSite = 0;
+            }
 
             //_dangerLvl = 0;
             //for (int i = 0; i < _countCriminalCases; i++)
